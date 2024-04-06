@@ -1,0 +1,151 @@
+:root {
+    /* Define color variables */
+    --primary-color: #202124;
+    --secondary-color: white;
+    --low-op-bg-color: rgba(50, 50, 50, 0.15);
+    --low-op-secondary-color: rgba(255, 255, 255, 0.18);
+    --primary-dark-color: #101112;
+    --secondary-half-op: rgba(255, 255, 255, 0.5);
+
+    /* Other variables */
+    --font-family: 'Open Sans', sans-serif;
+    --box-shadow-color: rgba(30, 30, 30, 0.37);
+    --link-hover-shadow: rgba(255, 255, 255, 0.9);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+/* Base Styles */
+html,
+body {
+    overflow: hidden;
+    margin: 0;
+    font-family: var(--font-family);
+    background-color: var(--primary-color);
+}
+
+/* Countdown Timer Styles */
+.timer {
+    font-size: 2rem;
+    letter-spacing: 0.4rem;
+    text-shadow: var(--primary-color) 0 0 10px;
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--secondary-color);
+    opacity: 0.6;
+    /* Put the timer text infront of the card */
+    z-index: 1;
+}
+
+.timer p {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    /* The padding-right serves to center the text in relation to the timer values, which are offset due to the letter-spacing */
+    padding-right: 0.2rem;
+    line-height: 1rem;
+    /* If margin is not set to 0, the time will be further away from the text – margin-bottom can be used to determine the distance between text and time manually*/
+    margin: 0;
+}
+
+/* Center the ring class */
+.ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-90deg) scale(2.5);
+}
+
+/* If the circles are not set to fill: none;, they'd have a background */
+.ring circle {
+    fill: none;
+}
+
+/* This is the ring behind the progress ring */
+.ring-background {
+    stroke: var(--primary-dark-color);
+    /*  stroke-width determines width of the ring  */
+    stroke-width: 1.75;
+    /* Using opacity to blend it better with the background – could also be set by a stroke value with alpha, e.g. hex with alpha or rgba*/
+    opacity: 0.5;
+}
+
+.ring-progress {
+    stroke: var(--secondary-color);
+    /* We need to calculate the circumference to set the stroke-dasharray to form a full ring. This means C = 2π x radius, i.e. 2π x 40 = 251.2 (radius can be found in the svg element in the HTML)*/
+    stroke-dasharray: 251.2;
+    stroke-dashoffset: 0;
+    /* stroke-linecap determines the end of the of the ring (like the tail of the progressbar) */
+    stroke-linecap: round;
+    /* stroke-width determines width of the ring – by making the progress-ring slightly larger, we can avoid having what looks like a border from the ring-background */
+    stroke-width: 2;
+}
+
+/* Backdrop for the timer */
+.card {
+    position: fixed;
+    width: 250px;
+    height: 250px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--low-op-bg-color);
+    box-shadow: 0 8px 32px 0 var(--box-shadow-color);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid var(--low-op-secondary-color);
+    border-radius: 1rem;
+}
+
+/* The rest of the CSS is just for the socials */
+a {
+    color: var(--secondary-half-op);
+    text-decoration: none;
+    transition: all 0.5s ease-in-out;
+}
+
+a:hover {
+    filter: drop-shadow(0px 0px 10px var(--link-hover-shadow));
+}
+
+.text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    top: 10%;
+    height: 80%;
+    width: 100%;
+    position: fixed;
+    left: 0;
+}
+
+.title {
+    font-size: 0.5rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.3rem;
+    font-weight: 500;
+    color: var(--secondary-half-op);
+}
+
+.socials {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.socials svg {
+    margin: 0 5px;
+    transition: all 0.5s ease-in-out;
+    transform: scale(1);
+}
+
+.socials svg:hover {
+    transform: scale(1.2);
+    filter: drop-shadow(0px 0px 5px var(--link-hover-shadow));
+}
